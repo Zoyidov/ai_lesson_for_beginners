@@ -1163,7 +1163,7 @@ async function ai(prompt, boxId, style){
   box.innerHTML=`<div class="ai-hdr">🤖 ИИ Помощник <div class="loading-dots on"><span></span><span></span><span></span></div></div><div class="ai-content"></div>`;
   S.aiCalls++; document.getElementById('cnt-ai').textContent=S.aiCalls;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
     const d=await res.json();
     const text=d.content?.map(c=>c.text||'').join('')||'Ошибка.';
     box.innerHTML=`<div class="ai-hdr">🤖 ИИ Помощник</div><div class="ai-content">${text}</div>`;
@@ -1177,7 +1177,7 @@ async function ai(prompt, boxId, style){
 async function aiText(prompt){
   S.aiCalls++; document.getElementById('cnt-ai').textContent=S.aiCalls;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})});
     const d=await res.json();
     return d.content?.map(c=>c.text||'').join('')||'';
   }catch(e){return '';}
